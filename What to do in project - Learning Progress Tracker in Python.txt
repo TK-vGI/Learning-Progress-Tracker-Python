@@ -1,0 +1,124 @@
+# Stage 1
+# print("Learning progress tracker")
+# 
+# # User command input - stripped and lowercased
+# inp = input().strip().lower()
+# 
+# # Loops until user enters 'exit'
+# while inp != 'exit':
+#     if not inp and not inp.isalpha():
+#         print('No input.')
+#     else:
+#         print('Error: unknown command!')
+#     inp = input().strip().lower()
+# 
+# print('Bye!')
+# 
+# # End of Stage 1
+
+
+# Stage 2
+# import re   # imports regular expressions module
+#
+# # Course title
+# print("Learning progress tracker")
+#
+# # Global variables
+# # total_students = 0  # not used
+#
+# # List of correct commands
+# commands = ['exit', 'add students', 'back']
+#
+# # List of input and/or error messages
+# msg_1 = "Enter 'exit' to exit the program."
+# msg_2 = "Enter student credentials or 'back' to return:"
+# msg_3 = "The student has been added."
+# msg_4 = "Incorrect credentials."
+# msg_41 = "Incorrect first name."
+# msg_42 = "Incorrect last name."
+# msg_43 = "Incorrect email."
+# msg_5 = "Total {} students have been added."
+#
+#
+# # Calls process_credentials() and verifies the input. Prints error messages.
+# # Returns a valid credential as a list: [first_name, last_name, email] or -1.
+# def add_students(user_input):
+#     # print('inside add_students function')
+#     credentials = list(user_input.split(" "))
+#     if len(credentials) < 3:
+#         print(msg_4)
+#         return -1
+#     else:
+#         user = process_credentials(credentials)
+#     # print(user)
+#     if not verify_name(user[0]):
+#         print(msg_41)
+#         return -1
+#     elif not verify_name(user[1]):
+#         print(msg_42)
+#         return -1
+#     elif not verify_email(user[2]):
+#         print(msg_43)
+#         return -1
+#     else:
+#         print(msg_3)
+#         return user
+#
+#
+# # Splits complicated credentials. Returns a list: [first_name, last_name, email].
+# def process_credentials(cred):
+#     # print('inside process_credentials function')
+#     f_name = cred[0]
+#     l_name = " ".join(cred[1:-1])
+#     email = cred[-1]
+#     return [f_name, l_name, email]
+#
+#
+# # Matches() str(name) with the regexp pattern. Returns True if it matches, False otherwise.
+# def verify_name(name):
+#     # print('inside verify_name function')
+#     name_pattern = "[A-Za-z]['-]?[A-Za-z]+(?:[ '-][A-Za-z]+)*"
+#     return bool(re.fullmatch(name_pattern, name)
+#                 )
+#
+#
+# # Matches() str(email) with the regexp pattern. Returns True if it matches, False otherwise.
+# def verify_email(email):
+#     # print('inside verify_email function')
+#     email_pattern = '^[a-zA-Z0-9]+(?:[.][a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.][a-zA-Z0-9]+$'
+#     return bool(re.fullmatch(email_pattern, email))
+#
+#
+# # User command input - stripped and lowercased
+# inp = input().strip().lower()
+#
+# # Loops until user enters 'exit'
+# while inp != 'exit':
+#     if not inp and not inp.isalpha():
+#         print('No input.')
+#     elif inp not in commands:
+#         print('Error: unknown command!')
+#     elif inp == 'back':
+#         print(msg_1)
+#     elif inp == 'add students':
+#         new_students = 0
+#         print(msg_2)
+#         inp = input().strip()  # no lower() - names can start with capital letters.
+#
+#         # Loops until the user enters 'back'. Adds/processes students during the session.
+#         while inp.lower() != 'back':
+#             if add_students(inp) != -1:
+#                 new_students += 1
+#             inp = input().strip()
+#
+#         # prints number of students added during the session
+#         print(msg_5.format(new_students))
+#         # # adds the session to global total_students
+#         # total_students += new_students    # not used
+#
+#     # User input for the main outer loop.
+#     inp = input().strip().lower()
+#
+# print('Bye!')
+#
+# # End of Stage 2
