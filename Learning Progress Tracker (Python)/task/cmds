@@ -1,0 +1,13 @@
+Stage 1:
+            cmd_exit = "exit"
+Stage 2:
+            cmd_add_students = "add students"
+            cmd_back = "back"
+Stage 3:
+            cmd_add_points = "add points"
+            cmd_list = "list"
+            cmd_find = "find"
+Stage 4:
+            cmd_stats = "statistics"
+Stage 5:
+            cmd_notify = "notify"

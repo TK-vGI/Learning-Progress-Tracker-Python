@@ -1,3 +1,4 @@
+Notes Stage 2:
 1. Name
 regexp_name: "^[A-Za-z]+(?:[ '-][A-Za-z]+)*$"
 
@@ -49,3 +50,13 @@ Notes:
 
     * The pcre2 library is used for PCRE2 compatibility in Python. Ensure it's installed (pip install pcre2)
         or test in a PCRE2-compatible environment.
+
+Notes Stage 3:
+
+1. Numbers - 'studentId number number number number'
+regexp_numbers: "[-A-Za-z0-9]+ [0-9]+ [0-9]+ [0-9]+ [0-9]+"
+
+Explanation of the RegExp:
+
+  -  [a-zA-Z0-9]+ : Matches one or more alphanumeric characters.
+  -  [0-9]+ : Matches one or more numeric characters.
