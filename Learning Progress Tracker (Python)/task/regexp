@@ -1,4 +1,3 @@
-Notes Stage 2:
 1. Name
 regexp_name: "^[A-Za-z]+(?:[ '-][A-Za-z]+)*$"
 
@@ -15,48 +14,39 @@ Supported Formats:
     * Simple names: John Smith, Mary Watson.
     * Hyphenated names: Jean-Claude, Anne-Marie.
     * Names with apostrophes: O'Neill, D'Angelo.
-    * Multi-part names: Robert Jemison Van de Graaff.
-    * Alphanumeric characters (A-Za-z0-9) are allowed for name parts: John123.
+    * Multi-part names: Robert Jemison Van de Graff.
 
 Restrictions:
+    * Only alphabetic characters (A-Za-z) are allowed for name parts.
     * Spaces, hyphens, or apostrophes are allowed as connectors between name parts.
     * No leading/trailing spaces, hyphens, or apostrophes.
     * No numbers, special characters (e.g., !, @), or empty strings
 
 2. Email
-regexp_email = "^[a-zA-Z0-9]+(?:[.][a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.][a-zA-Z0-9]+$"
+regexp_email = "^[a-zA-Z]+(?:[.][a-zA-Z]+)?@[a-zA-Z]+[.][a-zA-Z]{2,3}$"
 
 Explanation of the RegExp:
 
   -  ^ : Anchors the match at the start of the string.
-  -  [a-zA-Z0-9]+ : Matches one or more alphanumeric characters for the name or namesurname or name123.
-  -  (?:\.[a-zA-Z0-9]+)? : Non-capturing group for an optional .surname:
+  -  [a-zA-Z]+ : Matches one or more alphabetic characters for the name or namesurname.
+  -  (?:\.[a-zA-Z]+)? : Non-capturing group for an optional .surname:
       -  [.] : Literal dot (.).
-      -  [a-zA-Z0-9]+ : One or more alphanumeric characters for the surname or surname123.
+      -  [a-zA-Z]+ : One or more alphabetic characters for the surname.
       -  ? : Makes the entire group optional, allowing namesurname without a dot.
   -  @ : Literal @ symbol.
-  -  [a-zA-Z0-9]+ : One or more alphanumeric characters for the domain or domain123.
+  -  [a-zA-Z]+ : One or more alphabetic characters for the domain.
   -  [.] : Literal dot before the top-level domain.
-  -  [a-zA-Z0-9]+ : Any number of alphanumeric characters for the top-level domain (e.g. dk,1t, net, x23).
+  -  [a-zA-Z]{2.3} : Two to three alphabetic characters for the top-level domain (e.g. dk,it, abc, xyz).
   -  $ : Anchors the match at the end of the string.
 
 Notes:
     * This regex supports both name.surname@domain.abc (e.g., john.doe@domain.abc) and namesurname@domain.abc
         (e.g., janesmith@company.xyz).
-    * It allows:
-        * Alphanumeric characters for name, surname, and domain.
-        * Any number of alphanumeric characters for the top-level domain.
+    * It enforces:
+        * Alphabetic characters only for name, surname, and domain.
+        * Exactly three alphabetic characters for the top-level domain.
         * Optional dot-separated surname.
 
+    * If you need to allow numbers, underscores, or different TLD lengths, let me know, and I can adjust the pattern.
     * The pcre2 library is used for PCRE2 compatibility in Python. Ensure it's installed (pip install pcre2)
         or test in a PCRE2-compatible environment.
-
-Notes Stage 3:
-
-1. Numbers - 'studentId number number number number'
-regexp_numbers: "[-A-Za-z0-9]+ [0-9]+ [0-9]+ [0-9]+ [0-9]+"
-
-Explanation of the RegExp:
-
-  -  [a-zA-Z0-9]+ : Matches one or more alphanumeric characters.
-  -  [0-9]+ : Matches one or more numeric characters.
