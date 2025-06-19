@@ -1,11 +1,11 @@
-# Stage 4
+# Stage 5
 import re  # imports regular expressions module
 
 # Global variables
 students = []
 
 # List of correct commands
-commands = ['exit', 'add students', 'back', 'list', 'add points', 'find', 'statistics']
+commands = ['exit', 'add students', 'back', 'list', 'add points', 'find', 'statistics', 'notify']
 # Stage 1
 cmd_exit = "exit"
 # Stage 2
@@ -17,6 +17,8 @@ cmd_add_points = "add points"
 cmd_find = "find"
 # Stage 4
 cmd_stats = "statistics"
+# Stage 5
+cmd_notify = "notify"
 
 # List of courses
 # ['Python', 'Data Structures and Algorithms', 'Databases', 'Flask']
@@ -43,6 +45,7 @@ msg_9 = "Enter an id or 'back' to return"
 msg_91 = "%s points: Python=%d; DSA=%d; Databases=%d; Flask=%d"
 msg_10 = "Type the name of a course to see details or 'back' to quit"
 msg_101 = "Unknown course"
+msg_11 = "Total {} students have been notified."
 
 
 class Student:
@@ -60,6 +63,8 @@ class Student:
         self.score_flask = 0
         # Track submissions for activity calculation
         self.submissions = {'Python': 0, 'DSA': 0, 'Databases': 0, 'Flask': 0}
+        # Track notifications sent for each course
+        self.notified = {'Python': False, 'DSA': False, 'Databases': False, 'Flask': False}
 
     def full_name(self):
         """Return full name of student."""
@@ -98,6 +103,33 @@ class Student:
         """Increment submission count for a course if points are added."""
         if points > 0:
             self.submissions[course] += 1
+
+    def has_completed(self, course):
+        """Check if student has completed a course (earned max points)."""
+        return self.get_points(course) >= max_points[course]
+
+    def send_notification(self, course):
+        """Generate notification message for course completion."""
+        if self.has_completed(course) and not self.notified[course]:
+            self.notified[course] = True
+            return f"""To: {self.email}
+Re: Your Learning Progress
+Hello, {self.full_name()}! You have accomplished our {course} course!
+"""
+        return None
+
+
+def notify():
+    """Send notifications to students who have completed courses."""
+    notified_students = set()
+    for student in students:
+        for course in courses:
+            notification = student.send_notification(course)
+            if notification:
+                print(notification.strip())
+                notified_students.add(student.id)
+    print(msg_11.format(len(notified_students)))
+    take_input()
 
 
 def stats(prt_msg=True):
@@ -402,10 +434,12 @@ def take_input():
             find_students()
         elif usr_inp == cmd_stats:
             stats()
+        elif usr_inp == cmd_notify:
+            notify()
 
 
 # Run the program
 print("Learning progress tracker")
 take_input()
 
-# End of Stage 4
+# End of Stage 5
